@@ -8,24 +8,7 @@ import Logo from "./components/logo/logo.component";
 import ImageLinkForm from "./components/image-link-form/image-link-form.component";
 import ImageCount from "./components/image-count/image-count.component";
 
-const particleOptions = {
-  particles: {
-    number: {
-      value: 50,
-    },
-    size: {
-      value: 3,
-    },
-  },
-  interactivity: {
-    events: {
-      onhover: {
-        enable: true,
-        mode: "repulse",
-      },
-    },
-  },
-};
+import { particleOptions } from "./particle-options";
 
 class App extends React.Component {
   render() {
