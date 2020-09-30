@@ -12,7 +12,7 @@ import ImageCount from "./components/image-count/image-count.component";
 import FaceRecognition from "./components/face-recognition/face-recognition.component";
 
 const app = new Clarifai.App({
-  apiKey: `YOUR_API_GOES_HERE`,
+  apiKey: `${process.env.REACT_APP_API_KEY}`,
 });
 
 class App extends React.Component {
@@ -41,6 +41,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { imgUrl } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -51,7 +52,7 @@ class App extends React.Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition imgUrl={this.state.imgUrl} />
+        <FaceRecognition imgUrl={imgUrl} />
       </div>
     );
   }
