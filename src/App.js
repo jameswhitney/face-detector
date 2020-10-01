@@ -21,26 +21,27 @@ class App extends React.Component {
     this.state = {
       input: "",
       imgUrl: "",
-      box: {},
+      boxes: [],
     };
   }
 
   calculateFaceLocation = (data) => {
-    const clarifaiResponse =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById("image-input");
-    const width = Number(image.width);
-    const height = Number(image.height);
-    return {
-      topRow: clarifaiResponse.top_row * height,
-      leftCol: clarifaiResponse.left_col * width,
-      bottomRow: height - clarifaiResponse.bottom_row * height,
-      rightCol: width - clarifaiResponse.right_col * width,
-    };
+    return data.outputs[0].data.regions.map((face) => {
+      const clarifaiResponse = face.region_info.bounding_box;
+      const image = document.getElementById("image-input");
+      const width = Number(image.width);
+      const height = Number(image.height);
+      return {
+        topRow: clarifaiResponse.top_row * height,
+        rightCol: width - clarifaiResponse.right_col * width,
+        bottomRow: height - clarifaiResponse.bottom_row * height,
+        leftCol: clarifaiResponse.left_col * width,
+      };
+    });
   };
 
   displayBoundingBox = (box) => {
-    this.setState({ box: box });
+    this.setState({ boxes: box });
     console.log(box);
   };
 
@@ -59,7 +60,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { imgUrl, box } = this.state;
+    const { imgUrl, boxes } = this.state;
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
@@ -70,7 +71,7 @@ class App extends React.Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition box={box} imgUrl={imgUrl} />
+        <FaceRecognition boxes={boxes} imgUrl={imgUrl} />
       </div>
     );
   }
