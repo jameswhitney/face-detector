@@ -1,10 +1,10 @@
 export const particleOptions = {
   particles: {
     number: {
-      value: 60,
+      value: 80,
     },
     size: {
-      value: 3,
+      value: 4,
     },
   },
 };
