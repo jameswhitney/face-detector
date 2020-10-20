@@ -1,5 +1,6 @@
 import React from "react";
 
+const emailRegex = new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -18,23 +19,27 @@ class SignIn extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    fetch("http://localhost:3000/signin", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: this.state.signInEmail,
-        password: this.state.signInPassword,
-      }),
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        if (user.id) {
-          this.props.loadUser(user);
-          this.props.onRouteChange("home");
-        }
-      });
+    if (this.state.signInEmail.match(emailRegex)) {
+      fetch("http://localhost:3000/signin", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: this.state.signInEmail,
+          password: this.state.signInPassword,
+        }),
+      })
+        .then((response) => response.json())
+        .then((user) => {
+          if (user.id) {
+            this.props.loadUser(user);
+            this.props.onRouteChange("home");
+          }
+        })
+        .catch(() => "Could not sign in");
+    } else {
+      alert("Incorrect email/password");
+    }
   };
-
   render() {
     const { onRouteChange } = this.props;
     return (
