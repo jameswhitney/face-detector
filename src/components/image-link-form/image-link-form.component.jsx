@@ -2,8 +2,8 @@ import React from "react";
 import "./image-link-form.css";
 
 const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => (
-  <div>
-    <p className="f3 white">{`This app will detect faces within photos`}</p>
+  <React.Fragment>
+    <p className="white f3">{`Paste an image link below to detect faces`}</p>
     <div className="center">
       <div className="pa4 br3 shadow-2 form center">
         <input
@@ -19,7 +19,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => (
         </button>
       </div>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 export default ImageLinkForm;
