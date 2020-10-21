@@ -28,7 +28,7 @@ class Register extends Component {
     if (!this.state.email.match(emailRegex) || !this.state.name) {
       return alert("Please fill out all fields to register");
     } else {
-      fetch("http://localhost:3000/register", {
+      fetch("https://immense-gorge-26956.herokuapp.com/register", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

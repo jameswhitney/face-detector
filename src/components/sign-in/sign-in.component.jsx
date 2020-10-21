@@ -1,6 +1,5 @@
 import React from "react";
 
-const emailRegex = new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +18,11 @@ class SignIn extends React.Component {
   };
 
   onSubmitSignIn = () => {
+    const emailRegex = new RegExp(
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    );
     if (this.state.signInEmail.match(emailRegex)) {
-      fetch("http://localhost:3000/signin", {
+      fetch("https://immense-gorge-26956.herokuapp.com/signin", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
