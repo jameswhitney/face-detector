@@ -1,5 +1,5 @@
 import React from "react";
-import "./image-link-form.css";
+import "./image-link-form.styles.css";
 
 const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => (
   <React.Fragment>
