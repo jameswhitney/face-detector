@@ -26,7 +26,7 @@ class Register extends Component {
 
   onRegisterSubmit = () => {
     if (!this.state.email.match(emailRegex) || !this.state.name) {
-      return alert("Failed to register");
+      return alert("Please fill out all fields to register");
     } else {
       fetch("http://localhost:3000/register", {
         method: "post",
