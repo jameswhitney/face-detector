@@ -99,6 +99,7 @@ class App extends React.Component {
   };
 
   onRouteChange = (route) => {
+    this.setState({ isLoading: false });
     if (route === "signOut") {
       this.setState(initialState);
     } else if (route === "home") {
@@ -116,6 +117,7 @@ class App extends React.Component {
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
         />
+
         {route === "home" ? (
           <React.Fragment>
             <Logo />

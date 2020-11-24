@@ -1,4 +1,5 @@
 import React from "react";
+import Loader from "../Loader/loader.component";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -6,6 +7,7 @@ class SignIn extends React.Component {
     this.state = {
       signInEmail: "",
       signInPassword: "",
+      isLoading: false,
     };
   }
 
@@ -22,6 +24,7 @@ class SignIn extends React.Component {
       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
     );
     if (this.state.signInEmail.match(emailRegex)) {
+      this.setState({ isLoading: true });
       fetch("https://immense-gorge-26956.herokuapp.com/signin", {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -36,6 +39,7 @@ class SignIn extends React.Component {
             this.props.loadUser(user);
             this.props.onRouteChange("home");
           }
+          this.setState({ isLoading: false });
         })
         .catch(() => "Could not sign in");
     } else {
@@ -44,6 +48,10 @@ class SignIn extends React.Component {
   };
   render() {
     const { onRouteChange } = this.props;
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return <Loader />;
+    }
     return (
       <article className="br3 b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">

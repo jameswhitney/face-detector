@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Loader from "../Loader/loader.component";
 
 const emailRegex = new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
 
@@ -9,6 +10,7 @@ class Register extends Component {
       name: "",
       email: "",
       password: "",
+      isLoading: false,
     };
   }
 
@@ -28,6 +30,7 @@ class Register extends Component {
     if (!this.state.email.match(emailRegex) || !this.state.name) {
       return alert("Please fill out all fields to register");
     } else {
+      this.setState({ isLoading: true });
       fetch("https://immense-gorge-26956.herokuapp.com/register", {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -43,12 +46,17 @@ class Register extends Component {
             this.props.loadUser(user);
             this.props.onRouteChange("home");
           }
+          this.setState({ isLoading: false });
         })
         .catch(() => "registration error");
     }
   };
 
   render() {
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return <Loader />;
+    }
     return (
       <article className="br3 ba b--black-10 shadow-5 mv4 w-100 w-50-m w-25-l mw6 center">
         <main className="pa4 black-80">
