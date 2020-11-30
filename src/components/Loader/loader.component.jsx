@@ -3,8 +3,10 @@ import "./loader.styles.css";
 
 const Loader = () => {
   return (
-    <div className="container">
-      <div className="loader"></div>
+    <div className="overlay">
+      <div className="container">
+        <div className="loader"></div>
+      </div>
     </div>
   );
 };
